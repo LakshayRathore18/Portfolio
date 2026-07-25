@@ -59,7 +59,7 @@ export default function Navbar() {
             className="text-xl sm:text-2xl font-bold"
             whileHover={{ scale: 1.05 }}
           >
-            <span className="text-gradient">{'<L />'}</span>
+            <span className="text-gradient">{'<LR />'}</span>
           </motion.a>
 
           {/* Desktop Nav */}
@@ -122,21 +122,31 @@ export default function Navbar() {
             className="md:hidden glass border-t border-white/5 overflow-hidden"
           >
             <div className="px-4 py-4 space-y-2">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "block px-4 py-3 rounded-xl text-sm font-medium transition-colors",
-                    activeSection === item.href.slice(1)
-                      ? "bg-primary/20 text-white border border-primary/30"
-                      : "text-zinc-400 hover:bg-white/5 hover:text-white"
-                  )}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const sectionId = item.href.slice(1);
+                return (
+                  <button
+                    key={item.href}
+                    onClick={() => {
+                      const el = document.getElementById(sectionId);
+                      if (el) {
+                        const offset = 80;
+                        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+                        window.scrollTo({ top, behavior: "smooth" });
+                      }
+                      setTimeout(() => setMobileOpen(false), 200);
+                    }}
+                    className={cn(
+                      "w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors",
+                      activeSection === sectionId
+                        ? "bg-primary/20 text-white border border-primary/30"
+                        : "text-zinc-400 hover:bg-white/5 hover:text-white"
+                    )}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
             </div>
           </motion.nav>
         )}

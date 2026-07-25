@@ -13,7 +13,7 @@ export default function Footer() {
             className="text-xl font-bold"
             whileHover={{ scale: 1.05 }}
           >
-            <span className="text-gradient">{'<L />'}</span>
+            <span className="text-gradient">{'<LR />'}</span>
           </motion.a>
 
           {/* Links */}

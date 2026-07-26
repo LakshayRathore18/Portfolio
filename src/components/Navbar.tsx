@@ -125,26 +125,30 @@ export default function Navbar() {
               {navItems.map((item) => {
                 const sectionId = item.href.slice(1);
                 return (
-                  <button
+                  <a
                     key={item.href}
-                    onClick={() => {
-                      const el = document.getElementById(sectionId);
-                      if (el) {
-                        const offset = 80;
-                        const top = el.getBoundingClientRect().top + window.scrollY - offset;
-                        window.scrollTo({ top, behavior: "smooth" });
-                      }
-                      setTimeout(() => setMobileOpen(false), 200);
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMobileOpen(false);
+                      setTimeout(() => {
+                        const el = document.getElementById(sectionId);
+                        if (el) {
+                          const offset = 80;
+                          const top = el.getBoundingClientRect().top + window.scrollY - offset;
+                          window.scrollTo({ top, behavior: "smooth" });
+                        }
+                      }, 300);
                     }}
                     className={cn(
-                      "w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors",
+                      "w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors block",
                       activeSection === sectionId
                         ? "bg-primary/20 text-white border border-primary/30"
                         : "text-zinc-400 hover:bg-white/5 hover:text-white"
                     )}
                   >
                     {item.label}
-                  </button>
+                  </a>
                 );
               })}
             </div>

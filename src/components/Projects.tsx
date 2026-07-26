@@ -5,7 +5,17 @@ import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-const projects = [
+interface ProjectType {
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  color: string;
+  github?: string;
+  live?: string;
+}
+
+const projects: ProjectType[] = [
   {
     title: "MultiOCR",
     description:
@@ -13,7 +23,7 @@ const projects = [
     tags: ["FastAPI", "OCR", "Ollama", "PostgreSQL", "SentenceTransformers"],
     image: "🔍",
     color: "from-purple-500 to-indigo-500",
-    link: "https://github.com/LakshayRathore18/MultiOCR",
+    github: "https://github.com/LakshayRathore18/MultiOCR",
   },
   {
     title: "FocusTube",
@@ -22,16 +32,17 @@ const projects = [
     tags: ["Next.js", "TypeScript", "PostgreSQL", "Gemini API"],
     image: "🎯",
     color: "from-blue-500 to-cyan-500",
-    link: "https://focus-tube-eight.vercel.app/dashboard",
+    live: "https://focus-tube-eight.vercel.app/dashboard",
   },
   {
-    title: "METER",
+    title: "Universal Watcher",
     description:
-      "FastAPI and PostgreSQL-based web platform for managing meetings, trainings, and events with role-based access, approval workflows, and real-time notifications.",
-    tags: ["FastAPI", "PostgreSQL", "REST APIs", "BackgroundTasks"],
-    image: "📋",
+      "A self-healing web monitoring platform tracking user-defined targets via natural-language prompts. Features cached CSS selectors, 9 trigger types, and Google OAuth security.",
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Firecrawl", "Gemini API"],
+    image: "👁️",
     color: "from-emerald-500 to-teal-500",
-    link: "https://github.com/LakshayRathore18",
+    github: "https://github.com/LakshayRathore18/universal-watcher",
+    live: "https://universal-watcher.vercel.app",
   },
 ];
 
@@ -39,7 +50,7 @@ function ProjectCard({
   project,
   index,
 }: {
-  project: (typeof projects)[0];
+  project: ProjectType;
   index: number;
 }) {
   const ref = useRef(null);
@@ -80,19 +91,34 @@ function ProjectCard({
           <motion.div
             initial={{ opacity: 0 }}
             animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
-            className="absolute inset-0 bg-black/60 flex items-center justify-center z-20"
+            className="absolute inset-0 bg-black/60 flex flex-col gap-3 items-center justify-center z-20"
           >
-            <motion.a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ y: 20, opacity: 0 }}
-              animate={isHovered ? { y: 0, opacity: 1 } : {}}
-              transition={{ delay: 0.1 }}
-              className="px-6 py-2.5 rounded-full bg-white text-black text-sm font-medium hover:bg-zinc-200 transition-colors"
-            >
-              View Project
-            </motion.a>
+            {project.live && (
+              <motion.a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ y: 20, opacity: 0 }}
+                animate={isHovered ? { y: 0, opacity: 1 } : {}}
+                transition={{ delay: 0.1 }}
+                className="px-6 py-2 rounded-full bg-white text-black text-sm font-medium hover:bg-zinc-200 transition-colors w-32 text-center"
+              >
+                Live Demo
+              </motion.a>
+            )}
+            {project.github && (
+              <motion.a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ y: 20, opacity: 0 }}
+                animate={isHovered ? { y: 0, opacity: 1 } : {}}
+                transition={{ delay: 0.15 }}
+                className="px-6 py-2 rounded-full bg-zinc-800 border border-zinc-700 text-white text-sm font-medium hover:bg-zinc-700 transition-colors w-32 text-center"
+              >
+                GitHub
+              </motion.a>
+            )}
           </motion.div>
         </div>
 

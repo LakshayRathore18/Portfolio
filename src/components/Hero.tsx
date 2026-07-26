@@ -180,8 +180,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Full stack developer passionate about building performant web applications.
-          I love engineering clean systems, optimizing workflows, and solving real-world problems with code.
+          Full stack developer passionate about building scalable web applications,
+multi-step AI pipelines, API orchestration, clean REST APIs, and
+high-performance backend systems.
         </motion.p>
 
         {/* CTA Buttons */}

@@ -35,14 +35,13 @@ const projects: ProjectType[] = [
     live: "https://focus-tube-eight.vercel.app/dashboard",
   },
   {
-    title: "Universal Watcher",
+    title: "Everything Watcher",
     description:
       "A self-healing web monitoring platform tracking user-defined targets via natural-language prompts. Features cached CSS selectors, 9 trigger types, and Google OAuth security.",
     tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Firecrawl", "Gemini API"],
     image: "👁️",
     color: "from-emerald-500 to-teal-500",
-    github: "https://github.com/LakshayRathore18/universal-watcher",
-    live: "https://universal-watcher.vercel.app",
+    live: "https://everything-watcher.vercel.app",
   },
 ];
 

@@ -88,10 +88,10 @@ export default function About() {
                 Developer & Problem Solver
               </h3>
               <p className="text-zinc-400 leading-relaxed">
-                I'm Lakshay Rathore, a full stack developer at Delhi Technological University.
-                I love building performant web applications, engineering clean REST APIs,
-                and optimizing backend workflows.
-              </p>
+  I'm Lakshay Rathore, a full stack developer at Delhi Technological University.
+  I specialize in building scalable web applications, multi-step AI pipelines,
+  API orchestration, clean REST APIs, and high-performance backend systems.
+</p>
               <p className="text-zinc-400 leading-relaxed">
                 I recently interned at CCRAS (Central Council for Research in Ayurvedic Sciences)
                 where I engineered METER — a FastAPI and PostgreSQL-based platform for meeting management.

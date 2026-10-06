@@ -1,112 +1,101 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Briefcase, Calendar, CheckCircle2 } from "lucide-react";
 
 const experiences = [
   {
-    title: "IT Intern",
-    company: "CCRAS (Central Council for Research in Ayurvedic Sciences)",
-    period: "Dec 2025 - Jan 2026",
+    role: "IT Intern",
+    organization: "CCRAS (Central Council for Research in Ayurvedic Sciences)",
+    affiliation: "Ministry of Ayush, Govt. of India",
+    period: "Dec 2025 – Jan 2026",
+    location: "New Delhi, India",
     description:
-      "Engineered METER, a FastAPI and PostgreSQL-based web platform for managing meetings, trainings, and events with role-based access, approval workflows, and centralized record management. Implemented 30+ REST APIs supporting 3 user roles, dual-stage approvals, real-time notifications, and video transcription workflows. Initiated MultiOCR, a multi-engine OCR system for Sanskrit and Ayurveda-domain documents.",
-    tags: ["FastAPI", "PostgreSQL", "REST APIs", "OCR", "Python"],
+      "Engineered full-scale enterprise management tooling and AI document analysis solutions.",
+    keyAchievements: [
+      "Engineered METER, a web platform leveraging FastAPI and PostgreSQL for orchestrating institutional meetings, trainings, and event records.",
+      "Designed and deployed 30+ REST APIs supporting 3 user roles, dual-stage approval workflows, and real-time audit logging.",
+      "Initiated MultiOCR, an OCR ensemble system targeting historical Sanskrit and Ayurveda literature with custom spell correction.",
+    ],
+    technologies: ["FastAPI", "PostgreSQL", "Python", "REST APIs", "OCR", "Pydantic"],
   },
 ];
 
-function TimelineCard({
-  experience,
-  index,
-}: {
-  experience: (typeof experiences)[0];
-  index: number;
-}) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  return (
-    <div className="relative flex items-start gap-8 group">
-      {/* Timeline dot */}
-      <div className="hidden md:flex flex-col items-center">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={isInView ? { scale: 1 } : {}}
-          transition={{ duration: 0.4, delay: index * 0.2 }}
-          className="w-4 h-4 rounded-full bg-primary ring-4 ring-primary/20 z-10"
-        />
-        <div className="w-0.5 h-full bg-gradient-to-b from-primary/50 to-transparent absolute top-4" />
-      </div>
-
-      {/* Card */}
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, x: -30 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.6, delay: index * 0.2 }}
-        className="flex-1"
-      >
-        <div className="glass rounded-xl p-6 border border-white/5 hover:border-primary/20 transition-all group-hover:translate-x-1 duration-300">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-            <div>
-              <h3 className="text-lg font-semibold text-white">{experience.title}</h3>
-              <p className="text-primary text-sm">{experience.company}</p>
-            </div>
-            <span className="text-xs text-zinc-500 whitespace-nowrap px-3 py-1 rounded-full bg-white/5">
-              {experience.period}
-            </span>
-          </div>
-          <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-            {experience.description}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {experience.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-2.5 py-1 text-xs rounded-full bg-primary/10 text-primary"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
 export default function Experience() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+
   return (
-    <section id="experience" className="relative py-24 sm:py-32">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative">
+    <section id="experience" className="relative py-20 sm:py-28 border-t border-white/[0.06]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary text-sm font-medium tracking-wider uppercase">
+        <div className="mb-14 text-center sm:text-left">
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 uppercase tracking-widest mb-2">
+            <span className="w-2 h-2 rounded-xs bg-zinc-600" />
             Experience
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3">
-            Work{" "}
-            <span className="text-gradient">Experience</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+            Professional work & internships
           </h2>
-          <div className="w-20 h-1 animated-gradient rounded-full mx-auto mt-6" />
-          <p className="text-zinc-400 mt-4 max-w-xl mx-auto">
-            My professional journey building digital products and engineering solutions.
-          </p>
-        </motion.div>
+        </div>
 
-        {/* Timeline */}
-        <div className="space-y-8 ml-0 md:ml-8">
+        {/* Experience Timeline / Cards */}
+        <div ref={ref} className="space-y-6">
           {experiences.map((exp, i) => (
-            <TimelineCard key={exp.title} experience={exp} index={i} />
+            <motion.div
+              key={exp.organization}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+              className="card-base rounded-2xl p-6 sm:p-8"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-white/[0.06]">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-0.5 rounded-md bg-zinc-900 border border-white/[0.08] text-xs font-mono text-zinc-300">
+                      {exp.role}
+                    </span>
+                    <span className="text-xs font-mono text-zinc-500">{exp.location}</span>
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-white">
+                    {exp.organization}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-zinc-400 mt-0.5 font-mono">
+                    {exp.affiliation}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/[0.06] text-xs font-mono text-zinc-300 self-start sm:self-auto">
+                  <Calendar className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>{exp.period}</span>
+                </div>
+              </div>
+
+              {/* Achievements */}
+              <div className="py-6 space-y-3">
+                {exp.keyAchievements.map((achievement, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
+                    <p className="text-sm text-zinc-300 leading-relaxed">
+                      {achievement}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Tech stack */}
+              <div className="pt-4 border-t border-white/[0.06] flex flex-wrap gap-2">
+                {exp.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2.5 py-1 rounded-md bg-zinc-900 border border-white/[0.05] text-xs font-mono text-zinc-400"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

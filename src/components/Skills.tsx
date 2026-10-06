@@ -2,101 +2,136 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Code2, Server, Database, Terminal, Cpu, Layout } from "lucide-react";
 
-function SkillCard({
-  category,
-  skills,
-  icon,
-  index,
-}: {
-  category: string;
-  skills: string[];
-  icon: string;
-  index: number;
-}) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
-      whileHover={{ y: -8 }}
-      className="glass rounded-2xl p-6 border border-white/5 hover:border-primary/20 transition-all group"
-    >
-      <div className="text-3xl mb-4">{icon}</div>
-      <h3 className="text-lg font-semibold text-white mb-4">{category}</h3>
-      <div className="flex flex-wrap gap-2">
-        {skills.map((skill) => (
-          <span
-            key={skill}
-            className="px-3 py-1 text-xs rounded-full bg-white/5 text-zinc-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors"
-          >
-            {skill}
-          </span>
-        ))}
-      </div>
-    </motion.div>
-  );
+interface SkillCategory {
+  title: string;
+  icon: React.ReactNode;
+  skills: { name: string; level?: string }[];
 }
 
-const skillCategories = [
+const skillCategories: SkillCategory[] = [
   {
-    category: "Languages",
-    icon: "💻",
-    skills: ["C++", "Python", "JavaScript", "TypeScript"],
+    title: "Languages",
+    icon: <Terminal className="w-4 h-4 text-zinc-400" />,
+    skills: [
+      { name: "C++" },
+      { name: "Python" },
+      { name: "TypeScript" },
+      { name: "JavaScript" },
+      { name: "SQL" },
+    ],
   },
   {
-    category: "Frameworks",
-    icon: "⚛️",
-    skills: ["React.js", "Next.js", "Node.js", "Express.js", "FastAPI"],
+    title: "Frontend Development",
+    icon: <Layout className="w-4 h-4 text-zinc-400" />,
+    skills: [
+      { name: "Next.js" },
+      { name: "React.js" },
+      { name: "Tailwind CSS" },
+      { name: "HTML5 / CSS3" },
+      { name: "Framer Motion" },
+    ],
   },
   {
-    category: "Databases / Tools",
-    icon: "🗄️",
-    skills: ["PostgreSQL", "MongoDB", "MySQL", "Prisma"],
+    title: "Backend & Systems",
+    icon: <Server className="w-4 h-4 text-zinc-400" />,
+    skills: [
+      { name: "FastAPI" },
+      { name: "Node.js" },
+      { name: "Express.js" },
+      { name: "REST APIs" },
+      { name: "Microservices" },
+    ],
   },
   {
-    category: "Core CS",
-    icon: "🧠",
-    skills: ["DSA", "OOP", "OS", "DBMS", "CN"],
+    title: "Databases & ORM",
+    icon: <Database className="w-4 h-4 text-zinc-400" />,
+    skills: [
+      { name: "PostgreSQL" },
+      { name: "MongoDB" },
+      { name: "MySQL" },
+      { name: "Prisma ORM" },
+      { name: "Redis" },
+    ],
+  },
+  {
+    title: "AI & Tools",
+    icon: <Cpu className="w-4 h-4 text-zinc-400" />,
+    skills: [
+      { name: "LLM Orchestration" },
+      { name: "Gemini API" },
+      { name: "Ollama" },
+      { name: "SentenceTransformers" },
+      { name: "Git / GitHub" },
+    ],
+  },
+  {
+    title: "Core Computer Science",
+    icon: <Code2 className="w-4 h-4 text-zinc-400" />,
+    skills: [
+      { name: "Data Structures & Algorithms" },
+      { name: "Object Oriented Programming" },
+      { name: "Operating Systems" },
+      { name: "Database Management (DBMS)" },
+      { name: "Computer Networks" },
+    ],
   },
 ];
 
 export default function Skills() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+
   return (
-    <section id="skills" className="relative py-24 sm:py-32">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
+    <section id="skills" className="relative py-20 sm:py-28 border-t border-white/[0.06]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            Skills & Expertise
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3">
-            Technologies I{" "}
-            <span className="text-gradient">Work With</span>
+        <div className="mb-14 text-center sm:text-left">
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 uppercase tracking-widest mb-2">
+            <span className="w-2 h-2 rounded-xs bg-zinc-600" />
+            Skills & Stack
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+            Technical proficiencies & toolset
           </h2>
-          <div className="w-20 h-1 animated-gradient rounded-full mx-auto mt-6" />
-        </motion.div>
-
-        {/* Skill Categories */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-          {skillCategories.map((cat, i) => (
-            <SkillCard key={cat.category} {...cat} index={i} />
-          ))}
         </div>
 
+        {/* Skills Grid */}
+        <div
+          ref={ref}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+        >
+          {skillCategories.map((category, i) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="card-base rounded-2xl p-5 sm:p-6"
+            >
+              <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-white/[0.06]">
+                <div className="p-2 rounded-lg bg-zinc-900 border border-white/[0.08]">
+                  {category.icon}
+                </div>
+                <h3 className="text-sm font-semibold text-zinc-200">
+                  {category.title}
+                </h3>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill.name}
+                    className="px-2.5 py-1 rounded-lg bg-zinc-900/90 hover:bg-zinc-800 border border-white/[0.05] hover:border-white/[0.12] text-xs font-mono text-zinc-300 transition-colors duration-150"
+                  >
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

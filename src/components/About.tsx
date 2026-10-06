@@ -1,122 +1,133 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-function AnimatedSection({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 60 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import { GraduationCap, Briefcase, Code, MapPin } from "lucide-react";
 
 export default function About() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
   return (
-    <section id="about" className="relative py-24 sm:py-32">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="about" className="relative py-20 sm:py-28 border-t border-white/[0.06]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <AnimatedSection>
-          <div className="text-center mb-16">
-            <span className="text-primary text-sm font-medium tracking-wider uppercase">
-              About Me
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3">
-              Turning Ideas Into{" "}
-              <span className="text-gradient">Digital Reality</span>
-            </h2>
-            <div className="w-20 h-1 animated-gradient rounded-full mx-auto mt-6" />
+        <div className="mb-14 text-center sm:text-left">
+          <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 uppercase tracking-widest mb-2">
+            <span className="w-2 h-2 rounded-xs bg-zinc-600" />
+            About Me
           </div>
-        </AnimatedSection>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+            Engineering scalable systems & practical AI products
+          </h2>
+        </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left - Image */}
-          <AnimatedSection>
-            <div className="relative">
-              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden neon-border">
+        <div
+          ref={ref}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+        >
+          {/* Left Column: Photo & Quick Meta */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 space-y-4"
+          >
+            <div className="card-base rounded-2xl p-2.5 overflow-hidden group">
+              <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-zinc-900">
                 <img
-                  src="/profilepic.jpeg"
+                  src="/profilepic.png"
                   alt="Lakshay Rathore"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h4 className="text-white text-xl font-bold">Lakshay Rathore</h4>
-                  <p className="text-zinc-300 text-sm">Full Stack Developer</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3 p-3 rounded-lg bg-zinc-950/70 backdrop-blur-md border border-white/[0.08]">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-white text-sm font-semibold">Lakshay Rathore</p>
+                      <p className="text-zinc-400 text-xs font-mono">Delhi Technological University</p>
+                    </div>
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-950/60 border border-emerald-500/20 text-[11px] font-mono text-emerald-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      Active
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              {/* Floating badge */}
-              <motion.div
-                className="absolute -bottom-4 -right-4 glass rounded-xl p-4 border border-primary/20"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                    <div className="w-3 h-3 rounded-full bg-green-400" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-medium">Available</p>
-                    <p className="text-zinc-400 text-xs">For Work</p>
-                  </div>
-                </div>
-              </motion.div>
             </div>
-          </AnimatedSection>
 
-          {/* Right - Content */}
-          <AnimatedSection>
-            <div className="space-y-6">
-              <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                Developer & Problem Solver
+            {/* Quick Meta Cards */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="card-base p-4 rounded-xl">
+                <div className="flex items-center gap-2 text-zinc-400 text-xs mb-1">
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>Location</span>
+                </div>
+                <p className="text-zinc-200 text-sm font-medium">New Delhi, India</p>
+              </div>
+
+              <div className="card-base p-4 rounded-xl">
+                <div className="flex items-center gap-2 text-zinc-400 text-xs mb-1">
+                  <GraduationCap className="w-3.5 h-3.5" />
+                  <span>Education</span>
+                </div>
+                <p className="text-zinc-200 text-sm font-medium">DTU, B.Tech</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Bio & Core Experience Highlights */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="lg:col-span-7 space-y-6"
+          >
+            <div className="card-base p-6 sm:p-8 rounded-2xl space-y-4">
+              <h3 className="text-xl font-semibold text-white">
+                Background & Expertise
               </h3>
-              <p className="text-zinc-400 leading-relaxed">
-  I'm Lakshay Rathore, a full stack developer at Delhi Technological University.
-  I specialize in building scalable web applications, multi-step AI pipelines,
-  API orchestration, clean REST APIs, and high-performance backend systems.
-</p>
-              <p className="text-zinc-400 leading-relaxed">
-                I recently interned at CCRAS (Central Council for Research in Ayurvedic Sciences)
-                where I engineered METER — a FastAPI and PostgreSQL-based platform for meeting management.
-                I also initiated MultiOCR, a multi-engine OCR system for Sanskrit documents.
-              </p>
-              <p className="text-zinc-400 leading-relaxed">
-                When I'm not coding, I'm solving DSA problems, building AI-powered tools
-                like FocusTube — an LLM-powered YouTube playlist study platform, or exploring new technologies.
+
+              <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
+                I'm a full stack engineer passionate about backend architecture, API design,
+                and applied artificial intelligence. I enjoy building systems that solve tangible problems with high reliability and performance.
               </p>
 
-              {/* Skills summary */}
-              <div className="flex flex-wrap gap-3 pt-4">
-                {["Next.js", "React", "TypeScript", "Node.js", "FastAPI", "PostgreSQL", "Python", "C++"].map(
-                  (skill) => (
+              <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
+                During my IT internship at <span className="text-zinc-200 font-medium">CCRAS</span> (Ministry of Ayush), I engineered <span className="text-zinc-200 font-medium">METER</span> — a comprehensive platform handling meeting workflows, 30+ REST APIs, and multi-stage approval systems. I also pioneered <span className="text-zinc-200 font-medium">MultiOCR</span>, an intelligent multi-engine OCR pipeline with specialized Sanskrit lexicon correction.
+              </p>
+
+              <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
+                I continuously explore modern distributed architecture, LLM pipelines, vector databases, and full stack web development with Next.js and FastAPI.
+              </p>
+
+              {/* Focus tags */}
+              <div className="pt-4 border-t border-white/[0.06]">
+                <p className="text-xs font-mono uppercase tracking-wider text-zinc-500 mb-3">Core Stack</p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "TypeScript",
+                    "Next.js",
+                    "React",
+                    "FastAPI",
+                    "Python",
+                    "PostgreSQL",
+                    "Prisma",
+                    "C++",
+                    "Docker",
+                    "Tailwind CSS",
+                  ].map((tech) => (
                     <span
-                      key={skill}
-                      className="px-3 py-1.5 text-xs rounded-full glass border border-primary/10 text-zinc-300"
+                      key={tech}
+                      className="px-2.5 py-1 rounded-md bg-zinc-900 border border-white/[0.06] text-xs font-mono text-zinc-300"
                     >
-                      {skill}
+                      {tech}
                     </span>
-                  )
-                )}
+                  ))}
+                </div>
               </div>
             </div>
-          </AnimatedSection>
+          </motion.div>
         </div>
       </div>
     </section>

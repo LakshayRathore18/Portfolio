@@ -2,82 +2,15 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { ArrowUpRight, Terminal, Sparkles } from "lucide-react";
+import { GithubIcon } from "./Icons";
 
 const roles = [
   "Full Stack Developer",
-  "AI/ML Enthusiast",
+  "AI & Systems Builder",
+  "Backend & API Architect",
   "Problem Solver",
-  "Tech Innovator",
 ];
-
-function FloatingShape({
-  className,
-  delay = 0,
-  duration = 20,
-}: {
-  className: string;
-  delay?: number;
-  duration?: number;
-}) {
-  return (
-    <motion.div
-      className={`absolute rounded-full opacity-20 ${className}`}
-      animate={{
-        x: [0, 100, -50, 80, 0],
-        y: [0, -80, 50, -30, 0],
-        scale: [1, 1.2, 0.9, 1.1, 1],
-        rotate: [0, 90, 180, 270, 360],
-      }}
-      transition={{
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
-}
-
-function ParticleField() {
-  const [particles, setParticles] = useState<Array<{ x: number; y: number; size: number; delay: number }>>([]);
-
-  useEffect(() => {
-    const arr = Array.from({ length: 30 }, () => ({
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 4 + 1,
-      delay: Math.random() * 5,
-    }));
-    setParticles(arr);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((p, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full bg-primary/30"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-          }}
-          animate={{
-            opacity: [0.2, 1, 0.2],
-            scale: [0.8, 1.2, 0.8],
-          }}
-          transition={{
-            duration: 3,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -89,7 +22,7 @@ export default function Hero() {
     let timeout: ReturnType<typeof setTimeout>;
 
     if (!deleting && text === currentRole) {
-      timeout = setTimeout(() => setDeleting(true), 2000);
+      timeout = setTimeout(() => setDeleting(true), 2400);
     } else if (deleting && text === "") {
       setDeleting(false);
       setRoleIndex((prev) => (prev + 1) % roles.length);
@@ -102,7 +35,7 @@ export default function Hero() {
               : currentRole.slice(0, text.length + 1)
           );
         },
-        deleting ? 50 : 100
+        deleting ? 40 : 80
       );
     }
 
@@ -112,129 +45,118 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 overflow-hidden bg-grid-pattern"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-background" />
+      {/* Subtle radial spotlight overlay */}
+      <div className="absolute inset-0 bg-radial-gradient pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#09090b]/60 to-[#09090b] pointer-events-none" />
 
-      {/* Floating shapes */}
-      <FloatingShape className="w-72 h-72 bg-primary blur-3xl top-10 left-10" delay={0} />
-      <FloatingShape className="w-96 h-96 bg-accent blur-3xl bottom-20 right-10" delay={5} duration={25} />
-      <FloatingShape className="w-60 h-60 bg-purple-500 blur-3xl top-1/2 right-1/3" delay={10} duration={30} />
-
-      {/* Particles */}
-      <ParticleField />
-
-      {/* Grid overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
-
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        {/* Greeting */}
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        {/* Availability Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-4"
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-white/[0.08] text-xs text-zinc-300 mb-8 shadow-xs"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-sm text-zinc-300 border border-primary/20">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            Available for opportunities
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
+          <span className="font-mono text-[11px] text-zinc-400">Available for Opportunities</span>
         </motion.div>
 
-        {/* Name */}
+        {/* Hero Name & Heading */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-5xl sm:text-6xl md:text-8xl font-bold mb-6 leading-tight"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-6"
         >
-          Hi, I'm{" "}
-          <span className="text-gradient inline-block">Lakshay Rathore</span>
+          Lakshay Rathore
         </motion.h1>
 
-        {/* Typing effect */}
+        {/* Role with Dynamic Typing */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="h-12 mb-8"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="h-9 sm:h-11 flex items-center justify-center mb-6"
         >
-          <span className="text-xl sm:text-2xl md:text-3xl text-zinc-300">
-            {text}
-            <span className="inline-block w-0.5 h-7 sm:h-8 md:h-9 bg-primary ml-1 animate-[blink_1s_step-end_infinite]" />
-          </span>
+          <div className="inline-flex items-center gap-2 font-mono text-lg sm:text-2xl text-zinc-300">
+            <Terminal className="w-5 h-5 text-zinc-500" />
+            <span>{text}</span>
+            <span className="inline-block w-2 h-5 sm:h-6 bg-zinc-400 animate-pulse" />
+          </div>
         </motion.div>
 
-        {/* Description */}
+        {/* Brief Intro */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10"
         >
-          Full stack developer passionate about building scalable web applications,
-multi-step AI pipelines, API orchestration, clean REST APIs, and
-high-performance backend systems.
+          Software engineer & full stack developer crafting high-performance backend systems,
+          scalable web applications, multi-step AI pipelines, and clean REST APIs.
         </motion.p>
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="flex flex-wrap items-center justify-center gap-3.5"
         >
-          <motion.a
+          <a
             href="#projects"
-            className="group relative px-8 py-3.5 rounded-full font-medium text-sm overflow-hidden"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="group px-6 py-3 rounded-xl font-medium text-sm bg-zinc-100 text-zinc-950 hover:bg-white transition-all duration-200 flex items-center gap-2 shadow-xs hover:shadow-md"
           >
-            <span className="absolute inset-0 animated-gradient" />
-            <span className="relative z-10 text-white">View My Work</span>
-          </motion.a>
+            <span>Explore Projects</span>
+            <ArrowUpRight className="w-4 h-4 text-zinc-700 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
 
-          <motion.a
+          <a
             href="https://github.com/LakshayRathore18"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative px-8 py-3.5 rounded-full font-medium text-sm border border-zinc-600 text-zinc-300 hover:border-primary/50 hover:text-white transition-all"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 rounded-xl font-medium text-sm bg-zinc-900/80 border border-white/[0.08] text-zinc-300 hover:text-white hover:bg-zinc-800/80 hover:border-white/[0.16] transition-all duration-200 flex items-center gap-2"
           >
-            GitHub Profile
-          </motion.a>
+            <GithubIcon className="w-4 h-4" />
+            <span>GitHub</span>
+          </a>
+
+          <a
+            href="#contact"
+            className="px-6 py-3 rounded-xl font-medium text-sm bg-transparent border border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-all duration-200"
+          >
+            Contact Me
+          </a>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* Quick Highlights Bar */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-16 pt-8 border-t border-white/[0.06] flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-zinc-500 font-mono"
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="flex flex-col items-center gap-2"
-          >
-            <span className="text-xs text-zinc-500">Scroll</span>
-            <div className="w-5 h-8 rounded-full border border-zinc-600 flex justify-center pt-1.5">
-              <motion.div
-                className="w-1 h-2 rounded-full bg-primary"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-            </div>
-          </motion.div>
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
+            <span>FastAPI & Python</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
+            <span>Next.js & TypeScript</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
+            <span>PostgreSQL & Prisma</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
+            <span>AI Orchestration</span>
+          </div>
         </motion.div>
       </div>
     </section>

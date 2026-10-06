@@ -13,13 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lakshay | Full Stack Developer & Creative Thinker",
+  title: "Lakshay Rathore | Full Stack Developer",
   description:
-    "Portfolio of Lakshay — a passionate full stack developer crafting beautiful, performant, and accessible web applications.",
-  keywords: ["developer", "portfolio", "full stack", "react", "next.js", "web development"],
+    "Portfolio of Lakshay Rathore — Full stack developer specializing in scalable web apps, backend architecture, and AI systems.",
+  keywords: ["developer", "portfolio", "full stack", "react", "next.js", "fastapi", "postgresql", "python"],
   openGraph: {
-    title: "Lakshay | Full Stack Developer",
-    description: "Crafting digital experiences that blend creativity with technology.",
+    title: "Lakshay Rathore | Full Stack Developer",
+    description: "Full stack developer specializing in scalable web apps, backend architecture, and AI systems.",
     type: "website",
   },
 };
@@ -32,9 +32,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} dark scroll-smooth`}
     >
-      <body className="bg-[#0f0f1a] text-[#e2e8f0] font-sans antialiased min-h-screen">
+      <body className="bg-[#09090b] text-[#fafafa] font-sans antialiased min-h-screen selection:bg-zinc-800 selection:text-white">
         {children}
       </body>
     </html>
